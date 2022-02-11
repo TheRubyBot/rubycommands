@@ -68,7 +68,6 @@ const incrementRevision = (dev) => {
 
   pjson.revision++;
 
-  console.log(major, minor, patch, pjson.revision);
   // DEV: <major>.<minor>.<patch>-dev<revision>
   // PRODUCTION: <major>.<minor>.<patch>
 
