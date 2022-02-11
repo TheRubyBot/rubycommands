@@ -58,7 +58,6 @@ const build = async (e, inPath, outPath) => {
 
 const incrementRevision = (dev) => {
   const pjson = JSON.parse(readFileSync("package.json"));
-  console.log(pjson);
 
   const [
     major, // *Backwards -in-compatable* changes
@@ -80,5 +79,5 @@ const incrementRevision = (dev) => {
     pjson.version = versionString;
   } else pjson.version = baseVersion;
 
-  console.log(pjson);
+  writeFileSync("package.json", JSON.stringify(pjson, null, 2));
 };
