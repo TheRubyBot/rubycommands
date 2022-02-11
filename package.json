@@ -1,11 +1,14 @@
 {
   "name": "rubycommands",
   "version": "1.0.0",
-	"revision": 0,
+  "revision": 0,
   "main": "dist/index.js",
   "repository": "https://github.com/MorganWJones/rubycommands",
   "author": "Morgan Jones <wynjmorgan@gmail.com>",
   "license": "MIT",
+	"scripts": {
+		"watch": "node scripts/watch.mjs"
+	},
   "dependencies": {
     "chalk": "^5.0.0",
     "chokidar": "^3.5.3"
