@@ -1,17 +1,18 @@
 {
   "name": "rubycommands",
-  "version": "1.0.0",
-  "revision": 0,
+  "version": "1.0.0-dev13",
+  "revision": 13,
   "main": "dist/index.js",
   "repository": "https://github.com/MorganWJones/rubycommands",
   "author": "Morgan Jones <wynjmorgan@gmail.com>",
   "license": "MIT",
-	"scripts": {
-		"watch": "node scripts/watch.mjs"
-	},
+  "scripts": {
+    "watch": "node scripts/watch.mjs"
+  },
   "dependencies": {
     "chalk": "^5.0.0",
-    "chokidar": "^3.5.3"
+    "chokidar": "^3.5.3",
+    "discord.js": "^13.6.0"
   },
   "devDependencies": {
     "esbuild-plugin-d.ts": "^1.1.0",
