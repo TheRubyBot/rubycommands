@@ -1,7 +1,8 @@
 import type { Client } from "discord.js";
 import { join } from "path"
+import SlashCommandHandler from "./handlers/SlashCommandHandler";
 
-type func = () => void;
+export type func = () => void;
 
 interface Config {
   // Pre & Post command functions
@@ -17,16 +18,28 @@ interface Config {
 	// Directories
 	commandsDir: string
 	eventsDir?: string
+
+  // Booleans
+  globalTest?: boolean // If true, commands  will only applied to testServers
+
+  // Other
+  testServers?: string[]
+  owners?: string[]
 }
 
 export class RubyCommands {
-  // Pre/Post exec
-  public preExec: Config["preExec"] | undefined;
-  public postExec: Config["postExec"] | undefined;
-
   // Directories
   public commandsDir: Config["commandsDir"];
   public eventsDir: Config["eventsDir"] | undefined;
+
+  // Handlers
+  public slash: SlashCommandHandler;
+  // public command: TextCommandHandler;
+  // public event: EventHandler;
+
+  public globalTest: boolean | undefined;
+  public owners: string[] | undefined;
+  public testServers: string[] | undefined;
 
   constructor(client: Client, config: Config) {
     if (!client) throw new RubyError("A client was not provided");
@@ -37,12 +50,16 @@ export class RubyCommands {
       eventsDir,
       commandsDir,
       postExec,
+      globalTest,
+      owners,
+      testServers
     } = config
 
-    this.preExec = preExec;
-    this.postExec = postExec;
     this.eventsDir = eventsDir;
     this.commandsDir = commandsDir;
+    this.globalTest = globalTest;
+    this.owners = owners;
+    this.testServers = testServers;
 
     if(require.main) {
       const { path } = require.main
@@ -52,10 +69,15 @@ export class RubyCommands {
         if (this.eventsDir) this.eventsDir = join(path, this.eventsDir)
       }
     }
+
+    // Assign the handlers
+    this.slash = new SlashCommandHandler(this, client, typeof preExec === "object" ? preExec?.slash : preExec, typeof postExec === "object" ? postExec?.slash : postExec);
+    // this.command = new TextCommandHandler(client, this);
+    // if(this.eventsDir) this.event = new EventHandler(client, this);
   }
 }
 
-class RubyError extends Error {
+export class RubyError extends Error {
   constructor(...message: any[]) {
     super(...message);
 
