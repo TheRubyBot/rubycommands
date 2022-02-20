@@ -1,6 +1,8 @@
+var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
 var __export = (target, all) => {
@@ -15,6 +17,9 @@ var __reExport = (target, module2, copyDefault, desc) => {
   }
   return target;
 };
+var __toESM = (module2, isNodeMode) => {
+  return __reExport(__markAsModule(__defProp(module2 != null ? __create(__getProtoOf(module2)) : {}, "default", !isNodeMode && module2 && module2.__esModule ? { get: () => module2.default, enumerable: true } : { value: module2, enumerable: true })), module2);
+};
 var __toCommonJS = /* @__PURE__ */ ((cache) => {
   return (module2, temp) => {
     return cache && cache.get(module2) || (temp = __reExport(__markAsModule({}), module2, 1), cache && cache.set(module2, temp), temp);
@@ -22,9 +27,11 @@ var __toCommonJS = /* @__PURE__ */ ((cache) => {
 })(typeof WeakMap !== "undefined" ? /* @__PURE__ */ new WeakMap() : 0);
 var client_exports = {};
 __export(client_exports, {
-  RubyCommands: () => RubyCommands
+  RubyCommands: () => RubyCommands,
+  RubyError: () => RubyError
 });
 var import_path = require("path");
+var import_SlashCommandHandler = __toESM(require("./handlers/SlashCommandHandler"));
 class RubyCommands {
   constructor(client, config) {
     if (!client)
@@ -35,12 +42,16 @@ class RubyCommands {
       preExec,
       eventsDir,
       commandsDir,
-      postExec
+      postExec,
+      globalTest,
+      owners,
+      testServers
     } = config;
-    this.preExec = preExec;
-    this.postExec = postExec;
     this.eventsDir = eventsDir;
     this.commandsDir = commandsDir;
+    this.globalTest = globalTest;
+    this.owners = owners;
+    this.testServers = testServers;
     if (require.main) {
       const { path } = require.main;
       if (path) {
@@ -49,6 +60,7 @@ class RubyCommands {
           this.eventsDir = (0, import_path.join)(path, this.eventsDir);
       }
     }
+    this.slash = new import_SlashCommandHandler.default(this, client, typeof preExec === "object" ? preExec == null ? void 0 : preExec.slash : preExec, typeof postExec === "object" ? postExec == null ? void 0 : postExec.slash : postExec);
   }
 }
 class RubyError extends Error {
@@ -60,5 +72,6 @@ class RubyError extends Error {
 module.exports = __toCommonJS(client_exports);
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  RubyCommands
+  RubyCommands,
+  RubyError
 });

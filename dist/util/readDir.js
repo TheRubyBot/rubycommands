@@ -3,6 +3,10 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
 var __reExport = (target, module2, copyDefault, desc) => {
   if (module2 && typeof module2 === "object" || typeof module2 === "function") {
     for (let key of __getOwnPropNames(module2))
@@ -16,7 +20,27 @@ var __toCommonJS = /* @__PURE__ */ ((cache) => {
     return cache && cache.get(module2) || (temp = __reExport(__markAsModule({}), module2, 1), cache && cache.set(module2, temp), temp);
   };
 })(typeof WeakMap !== "undefined" ? /* @__PURE__ */ new WeakMap() : 0);
-var src_exports = {};
-__reExport(src_exports, require("./client"));
-__reExport(src_exports, require("./constructors/SlashCommand"));
-module.exports = __toCommonJS(src_exports);
+var readDir_exports = {};
+__export(readDir_exports, {
+  readDir: () => readDir
+});
+var import_fs = require("fs");
+var import_path = require("path");
+const readDir = (path, config) => {
+  const files = (0, import_fs.readdirSync)(path, { withFileTypes: true }).filter((x) => (config == null ? void 0 : config.ignoreDot) && !x.name.startsWith("."));
+  let matches = [];
+  for (const file of files) {
+    if (file.isDirectory())
+      matches.push(...readDir((0, import_path.join)(path, file.name), config));
+    else {
+      const fullPath = (0, import_path.join)(path, file.name);
+      matches.push(fullPath);
+    }
+  }
+  return matches;
+};
+module.exports = __toCommonJS(readDir_exports);
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  readDir
+});

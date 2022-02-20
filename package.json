@@ -1,7 +1,7 @@
 {
   "name": "rubycommands",
-  "version": "1.0.0-dev13",
-  "revision": 13,
+  "version": "1.0.0-dev69",
+  "revision": 69,
   "main": "dist/index.js",
   "repository": "https://github.com/MorganWJones/rubycommands",
   "author": "Morgan Jones <wynjmorgan@gmail.com>",
@@ -10,8 +10,10 @@
     "watch": "node scripts/watch.mjs"
   },
   "dependencies": {
+    "@discordjs/rest": "^0.3.0",
     "chalk": "^5.0.0",
     "chokidar": "^3.5.3",
+    "discord-api-types": "^0.27.2",
     "discord.js": "^13.6.0"
   },
   "devDependencies": {

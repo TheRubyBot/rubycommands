@@ -11,7 +11,13 @@ client.on("ready", () => {
 
   const rubyCommands = new RubyCommands(client, {
     commandsDir: "commands",
-    eventsDir: "events"
+    eventsDir: "events",
+    preExec() {
+      console.log("Before the command")
+    },
+    postExec() {
+      console.log("After the commadn")
+    }
   });
 
   console.log(rubyCommands)

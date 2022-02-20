@@ -1,5 +1,6 @@
 import type { Client } from "discord.js";
-declare type func = () => void;
+import SlashCommandHandler from "./handlers/SlashCommandHandler";
+export declare type func = () => void;
 interface Config {
     preExec?: func | {
         slash?: func;
@@ -11,12 +12,20 @@ interface Config {
     };
     commandsDir: string;
     eventsDir?: string;
+    globalTest?: boolean;
+    testServers?: string[];
+    owners?: string[];
 }
 export declare class RubyCommands {
-    preExec: Config["preExec"] | undefined;
-    postExec: Config["postExec"] | undefined;
     commandsDir: Config["commandsDir"];
     eventsDir: Config["eventsDir"] | undefined;
+    slash: SlashCommandHandler;
+    globalTest: boolean | undefined;
+    owners: string[] | undefined;
+    testServers: string[] | undefined;
     constructor(client: Client, config: Config);
+}
+export declare class RubyError extends Error {
+    constructor(...message: any[]);
 }
 export {};
