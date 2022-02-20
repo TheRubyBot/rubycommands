@@ -1,4 +1,4 @@
-# RubyCommands
+# RubyCommands [ARCHIVED]
 
 A simple discord.js command handler
 
@@ -10,3 +10,6 @@ A simple discord.js command handler
 - [ ] Event hander
 - [ ] Create a "base" custom MessageEmbed with a specific set style
 
+## Will it come back?
+
+Maybe idk
