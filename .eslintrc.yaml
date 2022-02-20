@@ -1,0 +1,19 @@
+extends: "eslint:recommended"
+
+env: 
+  node: true
+  es6: true
+
+no-await-in-loop: true
+no-constructor-return: true
+no-duplicate-imports: true
+no-unreachable-loop: true
+no-use-before-define: true
+
+capitalized-comments:
+  - "error"
+  - "always"
+  - {
+      ignoreInlineComments:true
+    }
+
